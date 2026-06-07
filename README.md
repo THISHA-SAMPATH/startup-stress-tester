@@ -94,18 +94,19 @@ Open: http://localhost:3000
 
 ## Architecture
 
+```
 User Input
-↓
-Challenger  →  reads shared memory → attacks  → writes to memory
-↓
-Consumer    →  reads memory → reacts          → writes to memory
-↓
-Forecaster  →  reads full memory → scores     → logs trace
-↓
+    ↓
+Challenger  →  reads shared memory  →  attacks  →  writes to memory
+    ↓
+Consumer    →  reads memory  →  reacts  →  writes to memory
+    ↓
+Forecaster  →  reads full memory  →  scores  →  logs trace
+    ↓
 Repeat for N rounds
-↓
+    ↓
 Dashboard shows full trace log, memory state, and survival graph live
----
+```
 
 ## Adjust agent behavior
 
