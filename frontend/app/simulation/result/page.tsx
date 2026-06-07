@@ -24,11 +24,12 @@ export default function ResultPage() {
   const [selectedRound, setSelectedRound] = useState<number | string>("all");
   const [activeTab, setActiveTab] = useState<"rounds" | "timeline">("rounds");
 
-  useEffect(() => {
+useEffect(() => {
+    if (typeof window === "undefined") return;
     const raw = sessionStorage.getItem("sim_result");
     if (!raw) { router.push("/"); return; }
     setResult(JSON.parse(raw));
-  }, [router]);
+}, [router]);
 
   const simId = useMemo(() => `ST-${Math.floor(Math.random() * 9000 + 1000)}`, []);
 
