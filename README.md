@@ -1,75 +1,85 @@
-# 🚀 Startup Stress Tester
+# Startup Stress Tester
 
-Battle-test your startup idea against three adversarial AI agents before you build.
+> Battle-test your startup idea against three adversarial AI agents before you build.
+
+[![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat&logo=next.js&logoColor=white)](https://nextjs.org)
+[![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)](https://docker.com)
+[![OpenRouter](https://img.shields.io/badge/OpenRouter-FF6C37?style=flat&logoColor=white)](https://openrouter.ai)
+
+---
 
 ## What it does
 
 Three AI agents simultaneously attack your startup idea:
 
 | Agent | Role | What it does |
-|---|---|---|
-| Challenger | Aggressive Competitor | Launches a rival, undercuts pricing, copies features |
-| Consumer | Real User | Complains about UX, demands features, threatens churn |
-| Forecaster | Market Analyst | Scores survival 0–100 every round with full reasoning |
+|-------|------|-------------|
+| **Challenger** | Aggressive Competitor | Launches a rival, undercuts pricing, copies features |
+| **Consumer** | Real User | Complains about UX, demands features, threatens churn |
+| **Forecaster** | Market Analyst | Scores survival 0–100 every round with full reasoning |
 
 All three share a **global memory state** — every agent reads what the others did and responds to it.
 
-This demonstrates: **traceability · shared memory · confidence scoring · agent environments**
+> Demonstrates: **traceability · shared memory · confidence scoring · agent environments**
+
+---
 
 ## Setup
 
 ### 1. Get your free OpenRouter API Key
-- Go to **openrouter.ai**
+
+- Go to [openrouter.ai](https://openrouter.ai)
 - Sign up with Google — no card needed
-- Click API Keys → Create key → Copy it
+- Click **API Keys → Create key → Copy it**
 
 ### 2. Set your API key
 
 Edit `backend/.env`:
-
 ```env
 OPENROUTER_API_KEY=your_key_here
 ```
 
+---
+
 ## Running with Docker (Recommended)
 
-### Prerequisites
-- Docker Desktop installed and running
-
-### Start everything
+**Prerequisites:** Docker Desktop installed and running
 
 ```bash
+git clone https://github.com/THISHA-SAMPATH/startup-stress-tester
 cd startup-stress-tester
 docker compose up --build
 ```
 
-Then open: **http://localhost:3000**
-
-### Stop
+Open: http://localhost:3000
 
 ```bash
+# Stop
 docker compose down
 ```
 
+---
+
 ## Running without Docker
 
-### Backend
-
+**Backend**
 ```bash
 cd backend
 pip install -r requirements.txt
 uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-### Frontend
-
+**Frontend**
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-Then open: **http://localhost:3000**
+Open: http://localhost:3000
+
+---
 
 ## How it works
 
@@ -80,42 +90,55 @@ Then open: **http://localhost:3000**
 5. All agents update a shared global state every round
 6. The dashboard shows the full trace log, memory state, and survival graph in real time
 
+---
+
 ## Architecture
+
 User Input
 ↓
-Challenger reads shared memory → attacks → writes to memory
+Challenger  →  reads shared memory → attacks  → writes to memory
 ↓
-Consumer reads memory → reacts → writes to memory
+Consumer    →  reads memory → reacts          → writes to memory
 ↓
-Forecaster reads full memory → scores → logs trace
+Forecaster  →  reads full memory → scores     → logs trace
 ↓
 Repeat for N rounds
 ↓
-Dashboard shows everything live
+Dashboard shows full trace log, memory state, and survival graph live
+---
 
 ## Adjust agent behavior
 
 Each agent's prompt is in:
+
 - `backend/agents/challenger.py` — competitor behavior
 - `backend/agents/consumer.py` — user behavior
 - `backend/agents/forecaster.py` — scoring logic
 
-## Troubleshooting
-
-| Problem | Solution |
-|---|---|
-| `OPENROUTER_API_KEY not set` | Edit `backend/.env` with your key |
-| `401 Unauthorized` | Your OpenRouter API key is invalid — regenerate at openrouter.ai |
-| `429 Rate Limited` | Free tier limit hit — wait a few minutes and retry |
-| Frontend can't reach backend | Make sure both services are running |
-| Docker build fails | Make sure Docker Desktop is running |
+---
 
 ## Tech Stack
 
-- **Frontend:** Next.js 14, TypeScript, Tailwind CSS
-- **Backend:** FastAPI, Python 3.11
-- **AI:** OpenRouter API (free tier) — `openrouter/free` model router
-- **Infrastructure:** Docker + Docker Compose
+| Layer | Technology |
+|-------|-----------|
+| Frontend | Next.js 14, TypeScript, Tailwind CSS |
+| Backend | FastAPI, Python 3.11 |
+| AI | OpenRouter API (free tier) |
+| Infrastructure | Docker + Docker Compose |
+
+---
+
+## Troubleshooting
+
+| Problem | Solution |
+|---------|---------|
+| `OPENROUTER_API_KEY` not set | Edit `backend/.env` with your key |
+| 401 Unauthorized | API key invalid — regenerate at openrouter.ai |
+| 429 Rate Limited | Free tier limit hit — wait a few minutes |
+| Frontend can't reach backend | Make sure both services are running |
+| Docker build fails | Make sure Docker Desktop is running |
+
+---
 
 ## Why I built this
 
